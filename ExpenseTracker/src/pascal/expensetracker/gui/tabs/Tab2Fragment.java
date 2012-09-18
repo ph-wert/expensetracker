@@ -1,5 +1,7 @@
-package pascal.expensetracker;
+package pascal.expensetracker.gui.tabs;
 
+import pascal.expensetracker.R;
+import pascal.expensetracker.R.layout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,7 +13,7 @@ import android.widget.LinearLayout;
  * @author mwho
  *
  */
-public class Tab1Fragment extends Fragment {
+public class Tab2Fragment extends Fragment {
 	/** (non-Javadoc)
 	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
 	 */
@@ -27,6 +29,6 @@ public class Tab1Fragment extends Fragment {
             // the view hierarchy; it would just never be used.
             return null;
         }
-		return (LinearLayout)inflater.inflate(R.layout.tab_frag1_layout, container, false);
+		return (LinearLayout)inflater.inflate(R.layout.tab_frag2_layout, container, false);
 	}
 }

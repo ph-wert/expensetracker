@@ -8,8 +8,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#312423"
-        android:text="Large Text"
+        android:text="Tab 3"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>

@@ -2,6 +2,10 @@ package pascal.expensetracker;
 
 import java.util.HashMap;
 
+import pascal.expensetracker.gui.tabs.Tab1Fragment;
+import pascal.expensetracker.gui.tabs.Tab2Fragment;
+import pascal.expensetracker.gui.tabs.Tab3Fragment;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -1,5 +1,7 @@
-package pascal.expensetracker;
+package pascal.expensetracker.gui.tabs;
 
+import pascal.expensetracker.R;
+import pascal.expensetracker.R.layout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
