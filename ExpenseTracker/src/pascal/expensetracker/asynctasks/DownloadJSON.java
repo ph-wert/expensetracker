@@ -15,12 +15,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import pascal.expensetracker.connection.JSONParser;
+import pascal.expensetracker.objects.JoinedExpenses;
 import android.os.AsyncTask;
 import android.util.Log;
-
 public class DownloadJSON extends AsyncTask<String, Void, String> {
-    
+     
 	public String url2 = "Ausgabe";
+	
+	public static final String TAG_EXPENSES 		= "expenses";	
+	private static final String TAG_EXPENSE 		= "expense";
+	private static final String TAG_EXPENSEID 		= "EXPENSEID";
+	private static final String TAG_EXPENSEDATE 	= "EXPENSEDATE";
+	private static final String TAG_EXPENSECOST 	= "EXPENSECOST";
+	private static final String TAG_SHOPNAME 		= "SHOPNAME";
+	private static final String TAG_COUNTRYNAME 	= "COUNTRYNAME";
+	private static final String TAG_COUNTRYSHORT 	= "COUNTRYSHORT";
+	private static final String TAG_PERSONNAME 		= "PERSONNAME";	
+	
+	JSONArray JSONArrayExpenses = null;
 	
 	private static String convertStreamToString(InputStream is) {
         /*
@@ -50,64 +63,39 @@ public class DownloadJSON extends AsyncTask<String, Void, String> {
     }
 	
 	protected String doInBackground(String... urls) {
-	      for (String url : urls) {
-		    	HttpClient httpclient = new DefaultHttpClient();
-    	 
-		        // Prepare a request object
-		        HttpGet httpget = new HttpGet(url); 
-		 
-		        // Execute the request
-		        HttpResponse response;
-		        try {
-		            response = httpclient.execute(httpget);
-		            // Examine the response status
-		            Log.i("Praeda",response.getStatusLine().toString());
-		 
-		            // Get hold of the response entity
-		            HttpEntity entity = response.getEntity();
-		            // If the response does not enclose an entity, there is no need
-		            // to worry about connection release
-		 
-		            if (entity != null) {
-		 
-		                // A Simple JSON Response Read
-		                InputStream instream = entity.getContent();
-		                String result= convertStreamToString(instream);
-		                Log.i("Praeda",result);
-		 
-		                // A Simple JSONObject Creation
-		                JSONObject json = new JSONObject(result);
-		                Log.i("Praeda","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
-		 
-		                // A Simple JSONObject Parsing
-		                JSONArray nameArray=json.names();
-		                JSONArray valArray=json.toJSONArray(nameArray);
-		                System.out.println("WIe lange:" +valArray.length());
-		                for(int i=0;i<valArray.length();i++)
-		                {
-		                    Log.i("Praeda","<jsonname"+i+">\n"+nameArray.getString(i)+"\n</jsonname"+i+">\n"
-		                            +"<jsonvalue"+i+">\n"+valArray.getString(i)+"\n</jsonvalue"+i+">");
-		                }
-		 
-		                // A Simple JSONObject Value Pushing
-		                json.put("sample key", "sample value");
-		                Log.i("Praeda","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
-		 
-		                // Closing the input stream will trigger connection release
-		                instream.close();
-		            }
-		 
-		 
-		        } catch (ClientProtocolException e) {
-		            // TODO Auto-generated catch block
-		            e.printStackTrace();
-		        } catch (IOException e) {
-		            // TODO Auto-generated catch block
-		            e.printStackTrace();
-		        } catch (JSONException e) {
-		            // TODO Auto-generated catch block
-		            e.printStackTrace();
-		        }
+		for (String url : urls) {
+
+//			String url2 = url;
+			// Creating JSON Parser instance
+	    	  JSONParser jParser = new JSONParser();
+	    	   
+	    	  // getting JSON string from URL
+	    	  JSONObject json = jParser.getJSONFromUrl(url);
+	    	  try {
+	    		  // Getting Array of JoinedExpenses
+	    		  JSONArrayExpenses = json.getJSONArray(TAG_EXPENSES);
+	    		 
+	    		  System.out.println("Länge JoinedExpenses: " +JSONArrayExpenses.length());
+	    		    // looping through All Contacts
+	    		    for(int i = 0; i < JSONArrayExpenses.length(); i++){
+	    		        JSONObject es = JSONArrayExpenses.getJSONObject(i);
+	    		        JSONObject e = es.getJSONObject(TAG_EXPENSE);
+	    		        JoinedExpenses je = new JoinedExpenses();
+	    		        
+	    		        je.setEXPENSEID(e.getString(TAG_EXPENSEID));
+	    		        je.setEXPENSEDATE(e.getString(TAG_EXPENSEDATE));
+	    		        je.setEXPENSECOST(e.getString(TAG_EXPENSECOST));
+	    		        je.setSHOPNAME(e.getString(TAG_SHOPNAME));
+	    		        je.setCOUNTRYNAME(e.getString(TAG_COUNTRYNAME));
+	    		        je.setCOUNTRYSHORT(e.getString(TAG_COUNTRYSHORT));
+	    		        je.setPERSONNAME(e.getString(TAG_PERSONNAME));
+	    		        
+	    		        je.OutputValuesJE(je);
+	    		    }
+	    		} catch (JSONException e) {
+	    		    e.printStackTrace();
+	    		}	    	  
+
 	    }
         return url2;
     }
