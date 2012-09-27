@@ -1,7 +1,7 @@
 package pascal.expensetracker.gui.tabs;
 
 import pascal.expensetracker.R;
-import pascal.expensetracker.R.layout;
+import pascal.expensetracker.asynctasks.GetJsonAsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -29,6 +29,10 @@ public class Tab2Fragment extends Fragment {
             // the view hierarchy; it would just never be used.
             return null;
         }
+//		RestClient.connect("http://www.phwert.host-ed.me/expensetracker/rest/joinedexpenses");
+		GetJsonAsyncTask test = new GetJsonAsyncTask(); 
+		test.readWebpage(getView(), getString(R.string.host_url));
+	    
 		return (LinearLayout)inflater.inflate(R.layout.tab_frag2_layout, container, false);
 	}
 }

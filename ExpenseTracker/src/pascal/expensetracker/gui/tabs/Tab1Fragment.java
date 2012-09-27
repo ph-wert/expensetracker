@@ -1,7 +1,6 @@
 package pascal.expensetracker.gui.tabs;
 
 import pascal.expensetracker.R;
-import pascal.expensetracker.R.layout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -29,6 +28,7 @@ public class Tab1Fragment extends Fragment {
             // the view hierarchy; it would just never be used.
             return null;
         }
+		System.out.println(getString(R.string.host_url));
 		return (LinearLayout)inflater.inflate(R.layout.tab_frag1_layout, container, false);
 	}
 }
