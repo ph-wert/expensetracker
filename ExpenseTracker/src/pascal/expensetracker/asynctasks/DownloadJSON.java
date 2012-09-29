@@ -4,21 +4,23 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import pascal.expensetracker.CustomApplication;
+import pascal.expensetracker.R;
 import pascal.expensetracker.connection.JSONParser;
 import pascal.expensetracker.objects.JoinedExpenses;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 public class DownloadJSON extends AsyncTask<String, Void, String> {
      
 	public String url2 = "Ausgabe";
@@ -34,6 +36,8 @@ public class DownloadJSON extends AsyncTask<String, Void, String> {
 	private static final String TAG_PERSONNAME 		= "PERSONNAME";	
 	
 	JSONArray JSONArrayExpenses = null;
+	
+	Dialog progress = null;
 	
 	private static String convertStreamToString(InputStream is) {
         /*
@@ -64,8 +68,9 @@ public class DownloadJSON extends AsyncTask<String, Void, String> {
 	
 	protected String doInBackground(String... urls) {
 		for (String url : urls) {
+			// Hashmap for ListView
+	        ArrayList<HashMap<String, String>> joinedExpenseList = new ArrayList<HashMap<String, String>>();
 
-//			String url2 = url;
 			// Creating JSON Parser instance
 	    	  JSONParser jParser = new JSONParser();
 	    	   
@@ -91,15 +96,45 @@ public class DownloadJSON extends AsyncTask<String, Void, String> {
 	    		        je.setPERSONNAME(e.getString(TAG_PERSONNAME));
 	    		        
 	    		        je.OutputValuesJE(je);
+	    		        
+	    		     // creating new HashMap
+	                    HashMap<String, String> map = new HashMap<String, String>();
+	     
+	                    // adding each child node to HashMap key => value
+	                    map.put(TAG_EXPENSEID, je.getEXPENSEID());
+	                    map.put(TAG_EXPENSEDATE, je.getEXPENSEDATE());
+	                    map.put(TAG_EXPENSECOST, je.getEXPENSECOST());
+	                    map.put(TAG_SHOPNAME, je.getSHOPNAME());
+	     
+	                    
+	                    // adding HashList to ArrayList
+	                    joinedExpenseList.add(map);
 	    		    }
 	    		} catch (JSONException e) {
 	    		    e.printStackTrace();
 	    		}	    	  
 
+	    	  
 	    }
         return url2;
     }
 
+    private void setListAdapter(ListAdapter adapter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+    protected void onPreExecute() {
+//    	ProgressDialog dialog = ProgressDialog.show(CustomApplication.getCustomAppContext(), "", "Loading. Please wait...", true);
+    	System.out.println("hier");
+    }
+    protected void onProgressUpdate(Integer... values) 
+    {
+    	ProgressDialog dialog = ProgressDialog.show(CustomApplication.getCustomAppContext(), "", "Loading. Please wait...", true);
+    	
+    }
+    
     @Override
     protected void onPostExecute(String result) {
     	System.out.println(result);

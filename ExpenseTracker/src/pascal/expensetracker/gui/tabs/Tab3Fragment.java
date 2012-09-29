@@ -1,13 +1,14 @@
 package pascal.expensetracker.gui.tabs;
 
 import pascal.expensetracker.R;
-import pascal.expensetracker.R.layout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 //import com.andy.R;
 
@@ -31,6 +32,24 @@ public class Tab3Fragment extends Fragment {
             // the view hierarchy; it would just never be used.
             return null;
         }
-		return (LinearLayout)inflater.inflate(R.layout.tab_frag3_layout, container, false);
+        LinearLayout theLayout = (LinearLayout) inflater.inflate(R.layout.tab_frag3_layout, container, false);
+
+        ListView listView = (ListView) theLayout.findViewById(R.id.listView);
+        String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
+          "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
+          "Linux", "OS/2" };
+
+        // First paramenter - Context
+        // Second parameter - Layout for the row
+        // Third parameter - ID of the TextView to which the data is written
+        // Forth - the Array of data
+        ArrayAdapter<String> adapter = null;
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
+        // Assign adapter to ListView
+        listView.setAdapter(adapter); 
+  	  	
+		
+		return theLayout;
 	}
 }

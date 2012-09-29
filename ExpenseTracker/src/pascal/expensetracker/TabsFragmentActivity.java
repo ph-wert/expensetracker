@@ -5,7 +5,7 @@ import java.util.HashMap;
 import pascal.expensetracker.gui.tabs.Tab1Fragment;
 import pascal.expensetracker.gui.tabs.Tab2Fragment;
 import pascal.expensetracker.gui.tabs.Tab3Fragment;
-
+import pascal.expensetracker.gui.tabs.Tab4Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -95,7 +95,8 @@ public class TabsFragmentActivity extends FragmentActivity implements TabHost.On
         this.mapTabInfo.put(tabInfo.tag, tabInfo);
         TabsFragmentActivity.addTab(this, this.mTabHost, this.mTabHost.newTabSpec("Tab3").setIndicator("Tab 3"), ( tabInfo = new TabInfo("Tab3", Tab3Fragment.class, args)));
         this.mapTabInfo.put(tabInfo.tag, tabInfo);
-        // Default to first tab
+        TabsFragmentActivity.addTab(this, this.mTabHost, this.mTabHost.newTabSpec("Tab4").setIndicator("Tab 4"), ( tabInfo = new TabInfo("Tab4", Tab4Fragment.class, args)));
+        this.mapTabInfo.put(tabInfo.tag, tabInfo);        // Default to first tab
         this.onTabChanged("Tab1");
         //
         mTabHost.setOnTabChangedListener(this);
