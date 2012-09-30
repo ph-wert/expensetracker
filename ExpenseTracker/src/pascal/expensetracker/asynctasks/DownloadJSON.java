@@ -12,15 +12,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pascal.expensetracker.CustomApplication;
-import pascal.expensetracker.R;
 import pascal.expensetracker.connection.JSONParser;
 import pascal.expensetracker.objects.JoinedExpenses;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 public class DownloadJSON extends AsyncTask<String, Void, String> {
      
 	public String url2 = "Ausgabe";
@@ -126,9 +123,7 @@ public class DownloadJSON extends AsyncTask<String, Void, String> {
 
 	@Override
     protected void onPreExecute() {
-//    	ProgressDialog dialog = ProgressDialog.show(CustomApplication.getCustomAppContext(), "", "Loading. Please wait...", true);
-    	System.out.println("hier");
-    }
+	}
     protected void onProgressUpdate(Integer... values) 
     {
     	ProgressDialog dialog = ProgressDialog.show(CustomApplication.getCustomAppContext(), "", "Loading. Please wait...", true);

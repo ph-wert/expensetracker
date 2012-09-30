@@ -20,8 +20,11 @@ public class Tab3Fragment extends Fragment {
 	/** (non-Javadoc)
 	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
 	 */
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
+			  "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
+			  "Linux", "OS/2", "SAPOS" };
+	
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (container == null) {
             // We have different layouts, and in one of them this
             // fragment's containing frame doesn't exist.  The fragment
@@ -33,23 +36,38 @@ public class Tab3Fragment extends Fragment {
             return null;
         }
         LinearLayout theLayout = (LinearLayout) inflater.inflate(R.layout.tab_frag3_layout, container, false);
-
-        ListView listView = (ListView) theLayout.findViewById(R.id.listView);
-        String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-          "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-          "Linux", "OS/2" };
-
-        // First paramenter - Context
-        // Second parameter - Layout for the row
-        // Third parameter - ID of the TextView to which the data is written
-        // Forth - the Array of data
-        ArrayAdapter<String> adapter = null;
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
-
-        // Assign adapter to ListView
-        listView.setAdapter(adapter); 
-  	  	
+ 
+        /** Creating an array adapter to store the list of countries **/
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, values);
+ 
+        /** Setting the list adapter for the ListFragment */
+//        setListAdapter(adapter);	
+ 
+        
+        
+        
+//		RestClient.connect("http://www.phwert.host-ed.me/expensetracker/rest/joinedexpenses");
+//		Tab3AsyncTask test = new Tab3AsyncTask(); 
+//		test.execute(theLayout);
 		
+		final ListView listView = (ListView) theLayout.findViewById(R.id.list_view);
+
+    	
+    	// First paramenter - Context
+		// Second parameter - Layout for the row
+		// Third parameter - ID of the TextView to which the data is written
+		// Forth - the Array of data
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
+		// Assign adapter to ListView
+		listView.setAdapter(adapter);
+
+  
 		return theLayout;
+	}
+
+	private void setListAdapter(ArrayAdapter<String> adapter) {
+		// TODO Auto-generated method stub
+		
 	}
 }
