@@ -28,7 +28,6 @@ public class Tab1Fragment extends Fragment {
             // the view hierarchy; it would just never be used.
             return null;
         }
-		System.out.println(getString(R.string.host_url));
 		return (LinearLayout)inflater.inflate(R.layout.tab_frag1_layout, container, false);
 	}
 }

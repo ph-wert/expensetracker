@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
     <resources>
-        <string name="host_url">http://www.phwert.host-ed.me/expensetracker/rest/joinedexpenses</string>
+        <string name="host_url">http://www.phwert.host-ed.me/expensetracker/</string>
     </resources>

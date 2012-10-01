@@ -32,7 +32,7 @@ public class GetJSONObject extends AsyncTask<String, Void, ArrayList<Map<String,
 	
 	protected ArrayList<Map<String, String>> doInBackground(String... urls) {
 		for (String url : urls) {
-			// Hashmap for ListView
+			url = url + "rest/joinedexpenses";
 	        
 			// Creating JSON Parser instance
 	    	  JSONParser jParser = new JSONParser();

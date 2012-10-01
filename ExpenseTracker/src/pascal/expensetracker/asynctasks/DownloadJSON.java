@@ -66,6 +66,7 @@ public class DownloadJSON extends AsyncTask<String, Void, String> {
 	protected String doInBackground(String... urls) {
 		for (String url : urls) {
 			// Hashmap for ListView
+			url = url + "rest/joinedexpenses";
 	        ArrayList<HashMap<String, String>> joinedExpenseList = new ArrayList<HashMap<String, String>>();
 
 			// Creating JSON Parser instance
