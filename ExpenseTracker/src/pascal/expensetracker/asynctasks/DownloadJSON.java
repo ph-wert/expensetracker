@@ -18,9 +18,8 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.ListAdapter;
-public class DownloadJSON extends AsyncTask<String, Void, String> {
+public class DownloadJSON extends AsyncTask<String, Void, Void> {
      
-	public String url2 = "Ausgabe";
 	
 	public static final String TAG_EXPENSES 		= "expenses";	
 	private static final String TAG_EXPENSE 		= "expense";
@@ -36,34 +35,7 @@ public class DownloadJSON extends AsyncTask<String, Void, String> {
 	
 	Dialog progress = null;
 	
-	private static String convertStreamToString(InputStream is) {
-        /*
-         * To convert the InputStream to String we use the BufferedReader.readLine()
-         * method. We iterate until the BufferedReader return null which means
-         * there's no more data to read. Each line will appended to a StringBuilder
-         * and returned as String.
-         */
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        StringBuilder sb = new StringBuilder();
- 
-        String line = null;
-        try {
-            while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return sb.toString();
-    }
-	
-	protected String doInBackground(String... urls) {
+	protected Void doInBackground(String... urls) {
 		for (String url : urls) {
 			// Hashmap for ListView
 			url = url + "rest/joinedexpenses";
@@ -111,18 +83,11 @@ public class DownloadJSON extends AsyncTask<String, Void, String> {
 	    		} catch (JSONException e) {
 	    		    e.printStackTrace();
 	    		}	    	  
-
-	    	  
 	    }
-        return url2;
+		return null;
     }
 
-    private void setListAdapter(ListAdapter adapter) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
+    @Override
     protected void onPreExecute() {
 	}
     protected void onProgressUpdate(Integer... values) 
@@ -131,9 +96,7 @@ public class DownloadJSON extends AsyncTask<String, Void, String> {
     	
     }
     
-    @Override
-    protected void onPostExecute(String result) {
-    	System.out.println(result);
+    protected void onPostExecute() {
     }
 
   }

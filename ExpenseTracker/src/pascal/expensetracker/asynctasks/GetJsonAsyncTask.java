@@ -21,7 +21,6 @@ public class GetJsonAsyncTask extends Activity {
 
 	  public void readWebpage(View view, String url) {
 	    DownloadJSON task = new DownloadJSON();
-//	    String url = "http://www.phwert.host-ed.me/expensetracker/rest/joinedexpenses";
 	    task.execute(new String[] { url });
 
 	  }

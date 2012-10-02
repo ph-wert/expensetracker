@@ -1,9 +1,11 @@
 package pascal.expensetracker.asynctasks;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -32,10 +34,12 @@ public class HttpPostAsyncTask extends AsyncTask<String, Void, String> {
 			        nameValuePairs.add(new BasicNameValuePair("shop_id", "10"));
 			        nameValuePairs.add(new BasicNameValuePair("person_id", "2"));
 			        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-		
+			       
 			        // Execute HTTP Post Request
 			        HttpResponse response = httpclient.execute(httppost);
-			        
+			        int responseCode = response.getStatusLine().getStatusCode();
+
+			        System.out.println("HTTP Response: " +responseCode);
 			    } catch (ClientProtocolException e) {
 			        // TODO Auto-generated catch block
 			    } catch (IOException e) {
@@ -45,4 +49,10 @@ public class HttpPostAsyncTask extends AsyncTask<String, Void, String> {
 		String url = "url";
 		return url;
 	} 
+	
+	@Override
+	protected void onPostExecute(String result) {
+		// TODO Auto-generated method stub
+		super.onPostExecute(result);
+	}
 }

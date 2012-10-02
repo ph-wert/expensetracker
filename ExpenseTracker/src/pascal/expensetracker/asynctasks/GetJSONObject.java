@@ -61,13 +61,13 @@ public class GetJSONObject extends AsyncTask<String, Void, ArrayList<Map<String,
 	    		        je.OutputValuesJE(je);
 	    		        
 	    		     // creating new HashMap
-	                    HashMap<String, String> map = new HashMap<String, String>();
+//	                    HashMap<String, String> map = new HashMap<String, String>();
 	     
 	                    // adding each child node to HashMap key => value
-	                    map.put(TAG_EXPENSEID, je.getEXPENSEID());
-	                    map.put(TAG_EXPENSEDATE, je.getEXPENSEDATE());
-	                    map.put(TAG_EXPENSECOST, je.getEXPENSECOST());
-	                    map.put(TAG_SHOPNAME, je.getSHOPNAME());
+//	                    map.put(TAG_EXPENSEID, je.getEXPENSEID());
+//	                    map.put(TAG_EXPENSEDATE, je.getEXPENSEDATE());
+//	                    map.put(TAG_EXPENSECOST, je.getEXPENSECOST());
+//	                    map.put(TAG_SHOPNAME, je.getSHOPNAME());
 	     
 	                    ejList.add(putData(je.getEXPENSEID(),je.getEXPENSEDATE(),je.getEXPENSECOST(),je.getSHOPNAME(),je.getCOUNTRYNAME(),je.getCOUNTRYSHORT(),je.getPERSONNAME()));
 	    		    }
