@@ -1,12 +1,12 @@
 package pascal.expensetracker.gui.tabs;
 
 import java.util.ArrayList;
+
 import pascal.expensetracker.R;
-import pascal.expensetracker.asynctasks.GetBaseAsyncTask.OnRequestFinishedListener;
 import pascal.expensetracker.asynctasks.GetBaseAsyncTask;
+import pascal.expensetracker.asynctasks.GetBaseAsyncTask.OnRequestFinishedListener;
 import pascal.expensetracker.asynctasks.GetJoinedShopsAsyncTask;
 import pascal.expensetracker.asynctasks.GetPersonAsyncTask;
-import pascal.expensetracker.asynctasks.HttpPostAsyncTask;
 import pascal.expensetracker.objects.Expense;
 import pascal.expensetracker.objects.JoinedShops;
 import pascal.expensetracker.objects.Persons;
@@ -19,6 +19,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -66,6 +68,15 @@ public class Tab1Fragment extends Fragment {
 		LinearLayout theLayout = (LinearLayout) inflater.inflate(
 				R.layout.tab_frag1_layout, container, false);
 
+		final DatePicker expenseDate = (DatePicker) theLayout.findViewById(R.id.expenseDatePicker);
+		expenseDate.init(2012, 10, 16, new OnDateChangedListener() {
+			public void onDateChanged(DatePicker view, int year, int monthOfYear,int dayOfMonth) {
+			    // Notify the user.
+				System.out.println("TOUCHED:" +year +"-"+monthOfYear +"-"+dayOfMonth);
+
+			}
+			});
+		
 		GetBaseAsyncTask<JoinedShops> task1 = new GetJoinedShopsAsyncTask(
 				new OnRequestFinishedListener<JoinedShops>() {
 
