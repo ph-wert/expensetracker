@@ -1,11 +1,9 @@
 package pascal.expensetracker.asynctasks;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -15,10 +13,15 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import pascal.expensetracker.CustomApplication;
+import pascal.expensetracker.gui.tabs.Tab1Fragment;
+import pascal.expensetracker.objects.Expense;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
 public class HttpPostAsyncTask extends AsyncTask<String, Void, String> {
 
+	private Expense test = new Expense();
 
 	protected String doInBackground(String... urls) {
 
@@ -29,11 +32,12 @@ public class HttpPostAsyncTask extends AsyncTask<String, Void, String> {
 			    try {
 			        // Add your data
 			        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-			        nameValuePairs.add(new BasicNameValuePair("expense_date", "2099-12-30"));
-			        nameValuePairs.add(new BasicNameValuePair("expense_cost", "99.99"));
-			        nameValuePairs.add(new BasicNameValuePair("shop_id", "10"));
-			        nameValuePairs.add(new BasicNameValuePair("person_id", "2"));
+			        nameValuePairs.add(new BasicNameValuePair("expense_date", test.getExpensedate()));
+			        nameValuePairs.add(new BasicNameValuePair("expense_cost", test.getExpense()));
+			        nameValuePairs.add(new BasicNameValuePair("shop_id", test.getShop()));
+			        nameValuePairs.add(new BasicNameValuePair("person_id", test.getPerson()));
 			        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			        System.out.println(test.getExpensedate() +" - " +test.getExpense() +" - " +test.getPerson() +" - " +test.getShop());  
 			       
 			        // Execute HTTP Post Request
 			        HttpResponse response = httpclient.execute(httppost);
@@ -49,7 +53,22 @@ public class HttpPostAsyncTask extends AsyncTask<String, Void, String> {
 		String url = "url";
 		return url;
 	} 
-	
+    @Override
+    protected void onPreExecute() {
+//    	ProgressDialog dialog = new ProgressDialog(this.);
+//        dialog.setTitle("Calculating...");
+//        dialog.setMessage("Please wait...");
+//        dialog.setIndeterminate(true);
+//        dialog.show();
+
+    	test = Tab1Fragment.getExpense();
+    	System.out.println(test.getExpensedate() +" - " +test.getExpense() +" - " +test.getPerson() +" - " +test.getShop());  
+    }
+    protected void onProgressUpdate(Integer... values) 
+    {
+    	ProgressDialog dialog = ProgressDialog.show(CustomApplication.getCustomAppContext(), "", "Loading. Please wait...", true);
+    	
+    }
 	@Override
 	protected void onPostExecute(String result) {
 		// TODO Auto-generated method stub

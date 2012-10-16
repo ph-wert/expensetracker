@@ -3,11 +3,38 @@ package pascal.expensetracker.objects;
 
 public class Expense {
 	
-	private Persons person;
-	private JoinedShops shop;
+	private String person;
+	private String shop;
 	private String expensedate;
 	private String expense;
 	
+	public Expense() {
+	}
+	
+	public Expense(String person, String shop, String expensedate, String expense) {
+		super();
+		this.person = person;
+		this.shop = shop;
+		this.expense = expense;
+		this.expensedate = expensedate;
+	}
+	
+	public String getPerson() {
+		return person;
+	}
+
+	public void setPerson(String person) {
+		this.person = person;
+	}
+
+	public String getShop() {
+		return shop;
+	}
+
+	public void setShop(String shop) {
+		this.shop = shop;
+	}
+
 	public String getExpensedate() {
 		return expensedate;
 	}
@@ -23,29 +50,4 @@ public class Expense {
 	public void setExpense(String expense) {
 		this.expense = expense;
 	}
-	
-	public Persons getPerson() {
-		return person;
-	}
-
-	public void setPerson(Persons person) {
-		this.person = person;
-	}
-
-	public JoinedShops getShop() {
-		return shop;
-	}
-
-	public void setShop(JoinedShops shop) {
-		this.shop = shop;
-	}
-
-	public Expense(Persons person, JoinedShops shop, String expensedate, String expense) {
-		super();
-		this.person = person;
-		this.shop = shop;
-		this.expense = expense;
-		this.expensedate = expensedate;
-	}
-
 }

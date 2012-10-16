@@ -7,11 +7,14 @@ import pascal.expensetracker.asynctasks.GetBaseAsyncTask;
 import pascal.expensetracker.asynctasks.GetBaseAsyncTask.OnRequestFinishedListener;
 import pascal.expensetracker.asynctasks.GetJoinedShopsAsyncTask;
 import pascal.expensetracker.asynctasks.GetPersonAsyncTask;
+import pascal.expensetracker.asynctasks.HttpPostAsyncTask;
 import pascal.expensetracker.objects.Expense;
 import pascal.expensetracker.objects.JoinedShops;
 import pascal.expensetracker.objects.Persons;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -31,19 +35,22 @@ import android.widget.Toast;
  */
 public class Tab1Fragment extends Fragment {
 
-	private Persons selectedPerson = null;
-	private JoinedShops selectedShop = null;
+	private static Expense selectedExpense = new Expense();
 
-	private void onButtonClicked() {
-		if (selectedPerson == null || selectedShop == null) {
-			Toast.makeText(getActivity(), "First select your items!",
-					Toast.LENGTH_LONG).show();
-			return;
-		}
+	//	private void onButtonClicked() {
+	//		if (selectedPerson == null || selectedShop == null) {
+	//			Toast.makeText(getActivity(), "First select your items!",
+	//					Toast.LENGTH_LONG).show();
+	//			return;
+	//		}
+	//
+	//		Expense currentExpense = new Expense();
+	//
+	//		// todo rest request so save currentexpense...
+	//	}
 
-		Expense currentExpense = new Expense(selectedPerson, selectedShop, "2099-9-9", "77.77");
-
-		// todo rest request so save currentexpense...
+	final static public Expense getExpense() {
+		return selectedExpense;
 	}
 
 	/**
@@ -71,12 +78,36 @@ public class Tab1Fragment extends Fragment {
 		final DatePicker expenseDate = (DatePicker) theLayout.findViewById(R.id.expenseDatePicker);
 		expenseDate.init(2012, 10, 16, new OnDateChangedListener() {
 			public void onDateChanged(DatePicker view, int year, int monthOfYear,int dayOfMonth) {
-			    // Notify the user.
-				System.out.println("TOUCHED:" +year +"-"+monthOfYear +"-"+dayOfMonth);
+				// Notify the user.
+				System.out.println("TOUCHED:" +year +"/" +dayOfMonth  +"/" +monthOfYear );
+				selectedExpense.setExpensedate(year +"-" +(monthOfYear+1) +"-" +dayOfMonth) ;
+			}
+		});
+
+		final EditText expenseCost = (EditText) theLayout.findViewById(R.id.expenseCost);
+		expenseCost.addTextChangedListener(new TextWatcher() {
+
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
+				selectedExpense.setExpense(s.toString());
+			}
+
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				System.out.println("beforetextchanged");
 
 			}
-			});
-		
+
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				//				selectedCost.
+				//				System.out.println(selectedCost);
+				System.out.println("aftertextchanged");
+
+			}
+		});
+
 		GetBaseAsyncTask<JoinedShops> task1 = new GetJoinedShopsAsyncTask(
 				new OnRequestFinishedListener<JoinedShops>() {
 
@@ -93,7 +124,7 @@ public class Tab1Fragment extends Fragment {
 								// it later for the rest request
 								Toast.makeText(getActivity(), shop.toString(),
 										Toast.LENGTH_LONG).show();
-								selectedShop = shop;
+								selectedExpense.setShop(shop.getShopid());
 							}
 
 							public void onNothingSelected(AdapterView<?> arg0) {
@@ -105,7 +136,7 @@ public class Tab1Fragment extends Fragment {
 								getActivity(),
 								android.R.layout.simple_spinner_item, result);
 						dataAdapterShops
-								.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 						spinner.setAdapter(dataAdapterShops);
 					}
 				});
@@ -129,7 +160,7 @@ public class Tab1Fragment extends Fragment {
 								Toast.makeText(getActivity(),
 										person.toString(), Toast.LENGTH_LONG)
 										.show();
-								selectedPerson = person;
+								selectedExpense.setPerson(person.getPERSONID());
 							}
 
 							public void onNothingSelected(AdapterView<?> arg0) {
@@ -141,7 +172,7 @@ public class Tab1Fragment extends Fragment {
 								getActivity(),
 								android.R.layout.simple_spinner_item, result);
 						dataAdapterShops
-								.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 						spinner.setAdapter(dataAdapterShops);
 					}
 				});
@@ -149,26 +180,20 @@ public class Tab1Fragment extends Fragment {
 
 		final Button buttonaddexpense = (Button) theLayout.findViewById(R.id.buttonaddexpense);
 		buttonaddexpense.setOnClickListener(new View.OnClickListener() {
-       	 public void onClick(View v) {
-//       		 HttpPostAsyncTask atask = new HttpPostAsyncTask();
-//       		 atask.execute(new String[] { getString(R.string.host_url) });
-       		 
-//                // Check Login
-//                String username = eingabefeld.getText().toString();
-//                String password = etPassword.getText().toString();
-//                 
-//                if(username.equals("guest") && password.equals("guest")){
-//                    lblResult.setText("Login successful.");
-//                } else {
-//                    lblResult.setText("Login failed. Username and/or password doesn't match.");
-//                }
-//       		 System.out.println(username);
-//       		 textausgabe.setText(username);
-       		Toast.makeText(getActivity(), "Eingabe:" +selectedShop.toString() +" (" +selectedShop.getShopid() +") - " +selectedPerson.toString() +" ("+selectedPerson.getPERSONID() +")", Toast.LENGTH_LONG).show();
-       	 }
-        });
-		
-		return theLayout;
-	}
+			public void onClick(View v) {
 
-}
+				Toast.makeText(getActivity(), "Eingabe:" +selectedExpense.getShop() +" - " 
+						+selectedExpense.getPerson() +" - " 
+						+selectedExpense.getExpensedate() +" - " 
+						+selectedExpense.getExpense(), Toast.LENGTH_LONG).show();
+				if (selectedExpense.getExpense() != "") {
+					HttpPostAsyncTask atask = new HttpPostAsyncTask();
+					atask.execute(new String[] { getString(R.string.host_url) });
+				}
+			}
+		});
+
+		return theLayout;
+		}
+
+	}

@@ -41,18 +41,10 @@ public class Tab4Fragment extends Fragment {
 
         knopf.setOnClickListener(new View.OnClickListener() {
         	 public void onClick(View v) {
-        		 HttpPostAsyncTask atask = new HttpPostAsyncTask();
-        		 atask.execute(new String[] { getString(R.string.host_url) });
+//        		 HttpPostAsyncTask atask = new HttpPostAsyncTask();
+//        		 atask.execute(new String[] { getString(R.string.host_url) });
         		 
-//                 // Check Login
                  String username = eingabefeld.getText().toString();
-//                 String password = etPassword.getText().toString();
-//                  
-//                 if(username.equals("guest") && password.equals("guest")){
-//                     lblResult.setText("Login successful.");
-//                 } else {
-//                     lblResult.setText("Login failed. Username and/or password doesn't match.");
-//                 }
         		 System.out.println(username);
         		 textausgabe.setText(username);
         	 }

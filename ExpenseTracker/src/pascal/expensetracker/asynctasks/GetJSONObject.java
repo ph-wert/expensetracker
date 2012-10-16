@@ -8,8 +8,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import pascal.expensetracker.CustomApplication;
 import pascal.expensetracker.connection.JSONParser;
 import pascal.expensetracker.objects.JoinedExpenses;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
 public class GetJSONObject extends AsyncTask<String, Void, ArrayList<Map<String, String>>> {
@@ -30,6 +32,7 @@ public class GetJSONObject extends AsyncTask<String, Void, ArrayList<Map<String,
 	public JSONObject json = null;
 	public ArrayList<Map<String, String>> ejList = new ArrayList<Map<String, String>>();
 	
+
 	protected ArrayList<Map<String, String>> doInBackground(String... urls) {
 		for (String url : urls) {
 			url = url + "rest/joinedexpenses";
