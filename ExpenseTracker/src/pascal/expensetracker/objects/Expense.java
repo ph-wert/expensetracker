@@ -7,16 +7,23 @@ public class Expense {
 	private String shop;
 	private String expensedate;
 	private String expense;
+	private String currency;
 	
 	public Expense() {
+		this.person = null;
+		this.shop = null;
+		this.expense = null;
+		this.expensedate = null;
+		this.currency = null;
 	}
 	
-	public Expense(String person, String shop, String expensedate, String expense) {
+	public Expense(String person, String shop, String expensedate, String expense, String currency) {
 		super();
 		this.person = person;
 		this.shop = shop;
 		this.expense = expense;
 		this.expensedate = expensedate;
+		this.currency = currency;
 	}
 	
 	public String getPerson() {
@@ -49,5 +56,13 @@ public class Expense {
 
 	public void setExpense(String expense) {
 		this.expense = expense;
+	}
+	
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 }

@@ -89,7 +89,7 @@ public class TabsFragmentActivity extends FragmentActivity implements TabHost.On
 		mTabHost = (TabHost)findViewById(android.R.id.tabhost);
         mTabHost.setup();
         TabInfo tabInfo = null;
-        TabsFragmentActivity.addTab(this, this.mTabHost, this.mTabHost.newTabSpec("Tab1").setIndicator("Tab 1"), ( tabInfo = new TabInfo("Tab1", Tab1Fragment.class, args)));
+        TabsFragmentActivity.addTab(this, this.mTabHost, this.mTabHost.newTabSpec("Add Expense").setIndicator("Add Expense"), ( tabInfo = new TabInfo("Add Expense", Tab1Fragment.class, args)));
         this.mapTabInfo.put(tabInfo.tag, tabInfo);
         TabsFragmentActivity.addTab(this, this.mTabHost, this.mTabHost.newTabSpec("Tab2").setIndicator("Tab 2"), ( tabInfo = new TabInfo("Tab2", Tab2Fragment.class, args)));
         this.mapTabInfo.put(tabInfo.tag, tabInfo);
@@ -97,7 +97,7 @@ public class TabsFragmentActivity extends FragmentActivity implements TabHost.On
         this.mapTabInfo.put(tabInfo.tag, tabInfo);
         TabsFragmentActivity.addTab(this, this.mTabHost, this.mTabHost.newTabSpec("Tab4").setIndicator("Tab 4"), ( tabInfo = new TabInfo("Tab4", Tab4Fragment.class, args)));
         this.mapTabInfo.put(tabInfo.tag, tabInfo);        // Default to first tab
-        this.onTabChanged("Tab1");
+        this.onTabChanged("Add Expense");
         //
         mTabHost.setOnTabChangedListener(this);
 	}

@@ -32,7 +32,8 @@ public class JoinedExpenses {
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	
 	public String getEXPENSEID() {
 		return EXPENSEID;
 	}

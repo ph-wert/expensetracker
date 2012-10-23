@@ -1,5 +1,10 @@
 package pascal.expensetracker.asynctasks;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -56,6 +61,7 @@ public abstract class GetBaseAsyncTask<T> extends AsyncTask<String, Void, ArrayL
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		
 		return result;
 	}
 

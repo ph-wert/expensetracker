@@ -11,6 +11,7 @@ public class JoinedShops {
 	public static final String TAG_COUNTRYID 	= "COUNTRYID";
 	public static final String TAG_COUNTRYNAME	= "COUNTRYNAME";
 	public static final String TAG_COUNTRYSHORT	= "COUNTRYSHORT";
+	public static final String TAG_CURRENCY		= "CURRENCY";
 	
 	public String getShopid() {
 		return shopid;
@@ -57,7 +58,16 @@ public class JoinedShops {
 	public String countryid;
 	public String countryname;
 	public String countryshort;
+	public String currency;
 	
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
 	public JoinedShops() {
 		// TODO Auto-generated constructor stub
 	}
@@ -76,6 +86,7 @@ public class JoinedShops {
         js.setCountryid(o.getString(TAG_COUNTRYID));
         js.setCountryname(o.getString(TAG_COUNTRYNAME));
         js.setCountryshort(o.getString(TAG_COUNTRYSHORT));
+        js.setCurrency(o.getString(TAG_CURRENCY));
         
         return js;
 	}

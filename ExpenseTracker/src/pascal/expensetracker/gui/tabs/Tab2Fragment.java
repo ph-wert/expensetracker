@@ -1,14 +1,16 @@
 package pascal.expensetracker.gui.tabs;
 
 import pascal.expensetracker.R;
-import pascal.expensetracker.asynctasks.DownloadJSON;
-import pascal.expensetracker.asynctasks.GetJsonAsyncTask;
+import android.util.DisplayMetrics;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * @author mwho
@@ -30,15 +32,22 @@ public class Tab2Fragment extends Fragment {
             // the view hierarchy; it would just never be used.
             return null;
         }
-		LinearLayout theLayout = (LinearLayout) inflater.inflate(R.layout.tab_frag3_layout, container, false);
+		LinearLayout theLayout = (LinearLayout) inflater.inflate(R.layout.tab_frag2_layout, container, false);
 		 
 //		RestClient.connect("http://www.phwert.host-ed.me/expensetracker/rest/joinedexpenses");
 //		GetJsonAsyncTask test = new GetJsonAsyncTask(); 
 //		test.readWebpage(getView(), getString(R.string.host_url));
+//		String url =  "http://chart.apis.google.com/chart?cht=p3&chs=500x200&chd=e:TNTNTNGa&chts=000000,16&chtt=A+Better+Web&chl=Hello|Hi|anas|Explorer&chco=FF5533,237745,9011D3,335423&chdl=SAP|Mozilla|Google|Microsoft";
+		String url = "http://savedbythegoog.appspot.com/?id=273800f50bc140cc8c9dc061d85b923ec3472e44";
 		
-		DownloadJSON task = new DownloadJSON();
-		task.execute(new String[] { getString(R.string.host_url) });
-	    
+        DisplayMetrics dm = new DisplayMetrics();
+     //   getWindowManager().getDefaultDisplay().getMetrics(dm);
+		TextView textView = (TextView) theLayout.findViewById(R.id.textView);
+		textView.setText("Height: "+dm.heightPixels + " Width: " +dm.widthPixels +url);
+		
+		WebView mCharView = (WebView) theLayout.findViewById(R.id.webViewChart);
+        mCharView.loadUrl(url);
+
 		return theLayout;
 	}
 }
