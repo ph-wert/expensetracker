@@ -1,10 +1,8 @@
 package pascal.expensetracker.gui.tabs;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import pascal.expensetracker.R;
 import pascal.expensetracker.asynctasks.GetBaseAsyncTask;
@@ -79,9 +77,16 @@ public class Tab1Fragment extends Fragment {
 		LinearLayout theLayout = (LinearLayout) inflater.inflate(R.layout.tab_frag1_layout, container, false);
 
 		final DatePicker expenseDate = (DatePicker) theLayout.findViewById(R.id.expenseDatePicker);
-		expenseDate.init(2012, 10, 16, new OnDateChangedListener() {
+		
+		Calendar cal = new GregorianCalendar();
+		final int nowYear = cal.get(Calendar.YEAR);
+		final int nowMonth = cal.get(Calendar.MONTH);
+		final int nowDay = cal.get(Calendar.DATE);
+		
+		expenseDate.init(nowYear, nowMonth, nowDay, new OnDateChangedListener() {
 			public void onDateChanged(DatePicker view, int year, int monthOfYear,int dayOfMonth) {
 				// Notify the user.
+				System.out.println("TOUCHEDcalendar:" +nowYear +"/" +nowMonth  +"/" +nowDay );
 				System.out.println("TOUCHED:" +year +"/" +dayOfMonth  +"/" +monthOfYear );
 				selectedExpense.setExpensedate(year +"-" +(monthOfYear+1) +"-" +dayOfMonth) ;
 			}
