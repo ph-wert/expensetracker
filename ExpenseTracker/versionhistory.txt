@@ -1,0 +1,4 @@
+version5:
+* exchange rate added
+version6:
+* check for "null" input and datepicker optimised
