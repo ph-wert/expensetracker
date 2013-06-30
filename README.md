@@ -1,4 +1,4 @@
-AndroidAppz
+Android App - Expense Tracker
 ===========
 
-AndroidAppz
+Android app to track my variable costs. 
