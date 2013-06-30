@@ -77,18 +77,20 @@ public class Tab1Fragment extends Fragment {
 		LinearLayout theLayout = (LinearLayout) inflater.inflate(R.layout.tab_frag1_layout, container, false);
 
 		final DatePicker expenseDate = (DatePicker) theLayout.findViewById(R.id.expenseDatePicker);
-		
+
 		Calendar cal = new GregorianCalendar();
 		final int nowYear = cal.get(Calendar.YEAR);
 		final int nowMonth = cal.get(Calendar.MONTH);
 		final int nowDay = cal.get(Calendar.DATE);
 		
-		expenseDate.init(nowYear, nowMonth, nowDay, new OnDateChangedListener() {
+		selectedExpense.setExpensedate(nowYear +"-" +(nowMonth + 1) +"-" +nowDay);
+		System.out.println("INFO/DateInitialised: "  +selectedExpense.getExpensedate());
+		
+		expenseDate.init(nowYear, nowMonth, nowDay, new OnDateChangedListener() {	
 			public void onDateChanged(DatePicker view, int year, int monthOfYear,int dayOfMonth) {
 				// Notify the user.
-				System.out.println("TOUCHEDcalendar:" +nowYear +"/" +nowMonth  +"/" +nowDay );
-				System.out.println("TOUCHED:" +year +"/" +dayOfMonth  +"/" +monthOfYear );
-				selectedExpense.setExpensedate(year +"-" +(monthOfYear+1) +"-" +dayOfMonth) ;
+				selectedExpense.setExpensedate(year +"-" +(monthOfYear+1) +"-" +dayOfMonth);
+				System.out.println("INFO/DateChanged: "  +selectedExpense.getExpensedate());
 			}
 		});
 
@@ -195,17 +197,27 @@ public class Tab1Fragment extends Fragment {
 				System.out.println("expense =" +selectedExpense.getExpense());
 				System.out.println("person =" +selectedExpense.getPerson());
 				System.out.println("shop =" +selectedExpense.getShop());
-				Toast.makeText(getActivity(), "Eingabe:" +selectedExpense.getShop() +" - " 
-						+selectedExpense.getPerson() +" - " 
-						+selectedExpense.getExpensedate() +" - " 
-						+selectedExpense.getExpense() +" " 
-						+selectedExpense.getCurrency(), Toast.LENGTH_LONG).show();
-
-				if (selectedExpense.getExpense() != null) {
-					System.out.println("Schreibe!");
-					HttpPostAsyncTask atask = new HttpPostAsyncTask();
-					atask.execute(new String[] { getString(R.string.host_url) });
-					expenseCost.setText("");
+				
+				if ( selectedExpense.getShop() == null 
+						|| selectedExpense.getPerson() == null 
+						|| selectedExpense.getExpensedate() == null 
+						|| selectedExpense.getExpense() == null 
+						|| selectedExpense.getCurrency() == null) {
+					Toast.makeText(getActivity(), "ACHTUNG, Falsche Eingabe", Toast.LENGTH_LONG).show();
+				}
+				else {
+					Toast.makeText(getActivity(), "Eingabe:" +selectedExpense.getShop() +" - " 
+							+selectedExpense.getPerson() +" - " 
+							+selectedExpense.getExpensedate() +" - " 
+							+selectedExpense.getExpense() +" " 
+							+selectedExpense.getCurrency(), Toast.LENGTH_LONG).show();
+	
+					if (selectedExpense.getExpense() != null || selectedExpense.getExpense() != "" || selectedExpense.getExpense() != "0") {
+						System.out.println("Schreibe!");
+						HttpPostAsyncTask atask = new HttpPostAsyncTask();
+						atask.execute(new String[] { getString(R.string.host_url) });
+						expenseCost.setText("");
+					}
 				}
 			}
 		});
